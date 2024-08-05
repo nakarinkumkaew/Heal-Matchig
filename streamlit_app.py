@@ -83,7 +83,7 @@ def set_background(image_file, background_size="cover"):
         unsafe_allow_html=True
     )
 
-set_background('back_ground.png', background_size="70% 100%")
+set_background('back_ground.png', background_size="100% 100%")
 
 if 'draw_enabled' not in st.session_state:
     st.session_state.draw_enabled = False
