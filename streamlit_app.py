@@ -76,7 +76,7 @@ def set_background(image_file, background_size="cover"):
             color: #333333;
         }}
         .shift-down {{
-            margin-top: 50px; 
+            margin-top: 30px; 
         }}
         </style>
         """,
