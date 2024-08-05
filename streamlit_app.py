@@ -92,7 +92,7 @@ if 'current_page' not in st.session_state:
     st.session_state.current_page = "main"
 
 if st.session_state.current_page == "main":
-    st.markdown('<div class="shift-down">ตอนนี้คุณเป็นอย่างไรบ้าง?</div>', unsafe_allow_html=True)
+    st.write(ตอนนี้คุณเป็นอย่างไรบ้าง?)
     if st.button('กำลังเหนื่อยอยู่ใช่มั๊ย', key='1-1', on_click=go_to_page, args=("tried",)):
         pass
     if st.button('กำลังกังวลอยู่ใช่มั๊ย', key='1-2', on_click=go_to_page, args=("confuse",)):
@@ -100,7 +100,7 @@ if st.session_state.current_page == "main":
     if st.button('ต้องการกำลังใจมั๊ย', key='1-3', on_click=go_to_page, args=("value",)):
         pass
 
-    st.markdown('<div class="shift-down">อยากรู้จักตัวเองมากขึ้นมั๊ย?</div>', unsafe_allow_html=True)
+    st.write(อยากรู้จักตัวเองมากขึ้นมั๊ย?)
     if st.button('อยากรู้จุดเด่นของฉันจัง', key='3-1'):
         st.write("landmark")
     if st.button('ฉันมีความสามารถอะไรบ้าง?', key='3-2'):
