@@ -45,7 +45,7 @@ def set_background(image_file, background_size="cover"):
             background-position: center center;
             background-color: #B4D6CD;
             padding-left: 20%;
-            padding-left: -30px;
+            margin-top: -10px; /* Move content up by 10px */
         }}
         .stButton>button {{
             background-color: #B4D6CD;
