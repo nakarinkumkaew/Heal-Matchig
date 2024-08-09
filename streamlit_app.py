@@ -1,9 +1,6 @@
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image,ImageDraw, ImageFont
-import cv2
-from ultralytics import YOLO
-from io import BytesIO
 import base64
 import io
 import os
@@ -121,67 +118,6 @@ def find_key_by_value(groups, item):
                 return key
     return None
 
-def predict(image):
-    results = model(image)
-    return results[0]
-
-# ฟังก์ชันสำหรับการวาด bounding box บนภาพ
-def draw_boxes(image, boxes):
-    label_description = None
-    for box in boxes:
-        x1, y1, x2, y2 = map(int, box.xyxy[0])  # แปลงค่าเป็น int
-        label_id = int(box.cls)  # แปลงคลาสเป็น int
-        confidence = float(box.conf)  # แปลงความมั่นใจเป็น float
-        label_description = LABEL_MAP.get(label_id, 'Unknown')  # Get the label description
-
-        # วาดกล่องและป้ายกำกับบนภาพ
-        cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(image, f'{label_description} ({confidence:.2f})', 
-                    (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    return image,label_description
-
-# ฟังก์ชันสำหรับการถ่ายภาพและทำการทำนาย
-def take_picture_and_detect(progress_bar):
-    cap = cv2.VideoCapture(0)
-    progress_bar.progress(10)
-    ret, frame = cap.read()
-    progress_bar.progress(20)
-    cap.release()
-
-    label_description = None
-    
-    if ret:
-        # Predict on the captured frame
-        progress_bar.progress(33)
-        result = predict(frame)
-        progress_bar.progress(66)
-        if result.boxes is not None:
-            frame_with_boxes,label_description = draw_boxes(frame.copy(), result.boxes)
-        else:
-            frame_with_boxes = frame
-        progress_bar.progress(100)
-        return frame_with_boxes,label_description
-    else:
-        st.error("ไม่สามารถถ่ายภาพได้")
-        return None
-
-# ฟังก์ชันสำหรับการแปลงภาพเป็นฟอร์แมตที่สามารถดาวน์โหลดได้
-def get_image_download_link(image, filename="detected_image.jpg"):
-    # แปลงภาพจาก BGR (OpenCV) ไปเป็น RGB (PIL)
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    img = Image.fromarray(image_rgb)
-    
-    # Save the image to a BytesIO object
-    buffered = BytesIO()
-    img.save(buffered, format="JPEG")
-    
-    # ใช้ฟังก์ชัน st.download_button เพื่อสร้างปุ่มดาวน์โหลด
-    st.download_button(
-        label="ดาวน์โหลดรูปภาพ",
-        data=buffered.getvalue(),
-        file_name=filename,
-        mime="image/jpeg"
-    )
 
 set_background('.devcontainer/back_ground.png', background_size="100% 100%")
 
@@ -203,20 +139,14 @@ if 'current_page' not in st.session_state:
 
 if st.session_state.current_page == "main":
 
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button('กำลังใจจากน้องยินดี', key='0-1', on_click=go_to_page, args=("inspire",)):
-            pass
-    with col2:
-        if st.button('น้องยินดีขอเดาอารมณ์ของคุณ', key='0-2', on_click=go_to_page, args=("photo",)):
-            pass
-    col3, col4 = st.columns(2)
-    with col3:
-        if st.button('อยากรู้จักตัวเองมากขึ้นมั๊ย', key='0-3', on_click=go_to_page, args=("yourself",)):
-            pass
-    with col4:
-        if st.button('น้องยินดีชวนระบายความรู้สึก', key='0-4', on_click=go_to_page, args=("feel",)):
-            pass
+    if st.button('กำลังใจจากน้องยินดี', key='0-1', on_click=go_to_page, args=("inspire",)):
+        pass
+
+    if st.button('อยากรู้จักตัวเองมากขึ้นมั๊ย', key='0-3', on_click=go_to_page, args=("yourself",)):
+        pass
+
+    if st.button('น้องยินดีชวนระบายความรู้สึก', key='0-4', on_click=go_to_page, args=("feel",)):
+        pass
 
 
 elif st.session_state.current_page == "inspire":
@@ -238,23 +168,6 @@ elif st.session_state.current_page == "yourself":
         st.write("ability")
     if st.button('ฉันเหมาะกับอาชีพอะไร?', key='3-3', on_click=go_to_page, args=("job",)):
         st.write("job")
-    if st.button("Go Back", on_click=go_to_page, args=("main",)):
-        pass
-
-elif st.session_state.current_page == "photo":
-    progress_bar = st.progress(0)
-    st.title("วิเคราะห์อารมณ์ของคุณ")
-    model = YOLO('.devcontainer/model/best.pt')
-    if st.button("ถ่ายภาพและตรวจจับ"):
-        detected_image,label_description = take_picture_and_detect(progress_bar)
-        if detected_image is not None:
-            st.image(detected_image, channels="BGR")
-            if(label_description is not None):
-                st.write("อารมณ์ตอนนี้ของคุณคือ : ",label_description)            
-            else:
-                st.write("ไม่สามารถตรวจจับอารมณ์ของคุณได้ในตอนนี้")
-            get_image_download_link(detected_image)  
-
     if st.button("Go Back", on_click=go_to_page, args=("main",)):
         pass
 
