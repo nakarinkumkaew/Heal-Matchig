@@ -1,4 +1,3 @@
 streamlit
 streamlit_drawable_canvas
-opencv-python-headless
-ultralytics
+
