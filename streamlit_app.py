@@ -1,10 +1,6 @@
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 from PIL import Image,ImageDraw, ImageFont
-from ultralytics import YOLO
-import cv2
-from io import BytesIO
 import base64
 import io
 import os
@@ -32,8 +28,8 @@ def go_to_page(page_name):
     st.session_state.current_page = page_name
 
 def buttom_subpage():
-    st.write("ถ้าคุณต้องการคนรับฟัง หรืออยากเล่าอะไร น้องยินดีรับฟังเสมอนะ")
-    st.write("สามารถส่งข้อความ หรือติดตามผลงานของน้องยินดีได้ตามช่องทางนี้เลย")
+    st.markdown('<p style="color:black;">ถ้าคุณต้องการคนรับฟัง หรืออยากเล่าอะไร น้องยินดีรับฟังเสมอนะ</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color:black;">สามารถส่งข้อความ หรือติดตามผลงานของน้องยินดีได้ตามช่องทางนี้เลย</p>', unsafe_allow_html=True)
     display_icon_with_link(".devcontainer/icon/facebook.png", 'The YouDee Project', "https://www.facebook.com/youdee.project")
     display_icon_with_link(".devcontainer/icon/ig.png", '@youdee.project', "https://www.instagram.com/youdee.project/")
     display_icon_with_link(".devcontainer/icon/web.png", 'The YouDee Project', "https://www.youdee.redcross.or.th/")
@@ -71,7 +67,6 @@ def set_background(image_file, background_size="cover"):
         }}
         .stSelectbox>div>div {{
             background-color: #B4D6CD;
-            width: 70%;
             border: 2px solid #666666;
             border-radius: 12px;
             transition: all 0.3s ease;
@@ -123,24 +118,6 @@ def find_key_by_value(groups, item):
     return None
 
 
-# ฟังก์ชันสำหรับการแปลงภาพเป็นฟอร์แมตที่สามารถดาวน์โหลดได้
-def get_image_download_link(image, filename="detected_image.jpg"):
-    # แปลงภาพจาก BGR (OpenCV) ไปเป็น RGB (PIL)
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    img = Image.fromarray(image_rgb)
-    
-    # Save the image to a BytesIO object
-    buffered = BytesIO()
-    img.save(buffered, format="JPEG")
-    
-    # ใช้ฟังก์ชัน st.download_button เพื่อสร้างปุ่มดาวน์โหลด
-    st.download_button(
-        label="ดาวน์โหลดรูปภาพ",
-        data=buffered.getvalue(),
-        file_name=filename,
-        mime="image/jpeg"
-    )
-
 set_background('.devcontainer/back_ground.png', background_size="100% 100%")
 
 
@@ -151,25 +128,19 @@ if 'current_page' not in st.session_state:
     st.session_state.current_page = "main"
 
 if st.session_state.current_page == "main":
+    st.markdown('<h1 style="color:black;">ให้น้องยินดีช่วยอะไรดี</h1>', unsafe_allow_html=True)
+    if st.button('กำลังใจจากน้องยินดี', key='0-1', on_click=go_to_page, args=("inspire",)):
+        pass
 
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button('กำลังใจจากน้องยินดี', key='0-1', on_click=go_to_page, args=("inspire",)):
-            pass
-    with col2:
-        if st.button('น้องยินดีขอเดาอารมณ์ของคุณ', key='0-2', on_click=go_to_page, args=("photo",)):
-            pass
-    col3, col4 = st.columns(2)
-    with col3:
-        if st.button('อยากรู้จักตัวเองมากขึ้นมั๊ย', key='0-3', on_click=go_to_page, args=("yourself",)):
-            pass
-    with col4:
-        if st.button('น้องยินดีชวนระบายความรู้สึก', key='0-4', on_click=go_to_page, args=("feel",)):
-            pass
+    if st.button('อยากรู้จักตัวเองมากขึ้นมั๊ย', key='0-3', on_click=go_to_page, args=("yourself",)):
+        pass
+
+    if st.button('น้องยินดีชวนระบายความรู้สึก', key='0-4', on_click=go_to_page, args=("feel",)):
+        pass
 
 
 elif st.session_state.current_page == "inspire":
-    st.title("ตอนนี้คุณเป็นอย่างไรบ้าง")
+    st.markdown('<h1 style="color:black;">ตอนนี้คุณเป็นอย่างไรบ้าง</h1>', unsafe_allow_html=True)
     if st.button('กำลังเหนื่อยอยู่ใช่มั๊ย', key='1-1', on_click=go_to_page, args=("tried",)):
         pass
     if st.button('กำลังกังวลอยู่ใช่มั๊ย', key='1-2', on_click=go_to_page, args=("confuse",)):
@@ -180,7 +151,7 @@ elif st.session_state.current_page == "inspire":
         pass
 
 elif st.session_state.current_page == "yourself":
-    st.title("อยากรู้จักตัวเองในด้านไหน?")
+    st.markdown('<h1 style="color:black;">อยากรู้จักตัวเองในด้านไหน?</h1>', unsafe_allow_html=True)
     if st.button('อยากรู้จุดเด่นของฉันจัง', key='3-1', on_click=go_to_page, args=("landmark",)):
         st.write("landmark")
     if st.button('ฉันมีความสามารถอะไรบ้าง?', key='3-2', on_click=go_to_page, args=("ability",)):
@@ -190,57 +161,8 @@ elif st.session_state.current_page == "yourself":
     if st.button("Go Back", on_click=go_to_page, args=("main",)):
         pass
 
-elif st.session_state.current_page == "photo":
-    LABEL_COLOR_MAP = {
-        'Angry': (0, 0, 255),     # Red
-        'Fearful': (255, 0, 0),   # Blue
-        'Happy': (0, 255, 255),   # Yellow
-        'Neutral': (255, 255, 255),  # White
-        'Sad': (0, 0, 0),         # Black
-    }
-
-    model = YOLO('.devcontainer/model/best_m_size.pt')    
-
-    if 'last_detected_image' not in st.session_state:
-        st.session_state.last_detected_image = None
-
-    class YOLOVideoTransformer(VideoTransformerBase):
-        def __init__(self):
-            self.model = model
-
-        def transform(self, frame):
-            img = frame.to_ndarray(format="bgr24")
-
-            # Perform object detection
-            results = self.model(img)[0]
-
-            # Draw bounding boxes and labels
-            for box in results.boxes:
-                x1, y1, x2, y2 = map(int, box.xyxy[0])  # Get bounding box coordinates
-                label = results.names[int(box.cls)]  # Get the class name
-                confidence = float(box.conf)  # Get the confidence score
-
-                # Get color for the label
-                color = LABEL_COLOR_MAP.get(label, (0, 255, 0))  # Default to green if label not found
-
-                # Draw bounding box
-                cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
-
-                # Draw label and confidence score
-                cv2.putText(img, f'{label} ({confidence:.2f})',
-                            (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-
-            st.session_state.last_detected_image = img  # Update the session state with the latest detected image
-
-            return img
-
-    st.title("Real-time Object Detection with YOLO and Streamlit")
-    ctx = webrtc_streamer(key="example", video_transformer_factory=YOLOVideoTransformer)
-    buttom_subpage()  
-
 elif st.session_state.current_page == "feel":
-    st.title("คุณมีอะไรอยากระบายมั๊ย?")
-
+    st.markdown('<h1 style="color:black;">คุณมีอะไรอยากระบายมั๊ย?</h1>', unsafe_allow_html=True)
     canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",
         stroke_width=1,
@@ -269,13 +191,13 @@ elif st.session_state.current_page == "feel":
 elif st.session_state.current_page in ("tried", "confuse", "value"):
     image_path = get_random_image_path(".devcontainer/card/" + st.session_state.current_page)
     image = Image.open(image_path)
-    st.markdown('<div class="shift-down">สามารถบันทึกรูปภาพ เพื่อแชร์ให้คนสำคัญของเพื่อนๆ และให้กำลังใจตัวเองได้นะ</div>', unsafe_allow_html=True)
+    st.markdown('<div class="shift-down; style="color:black;">สามารถบันทึกรูปภาพ เพื่อแชร์ให้คนสำคัญของเพื่อนๆ และให้กำลังใจตัวเองได้นะ</div>', unsafe_allow_html=True)
     st.image(image)
     save_img(image)
     buttom_subpage()
 
 elif st.session_state.current_page == "landmark":
-    st.title("จุดเด่นของคุณคืออะไรกันแน่นะ?")
+    st.markdown('<h1 style="color:black;">จุดเด่นของคุณคืออะไรกันแน่นะ?</h1>', unsafe_allow_html=True)
     advice_dict = {
         "ความรักและความสัมพันธ์": 
             "- สามารถฟังปัญหาของเพื่อนอย่างละเอียดและไม่ตัดสิน\n"
@@ -328,7 +250,7 @@ elif st.session_state.current_page == "landmark":
     buttom_subpage()
 
 elif st.session_state.current_page == "ability":
-    st.title("Styled Dropdown Example")
+    st.markdown('<h1 style="color:black;">จุดเด่นของคุณคืออะไรกันแน่นะ?</h1>', unsafe_allow_html=True)
     groups = {
         "การช่วยเหลือและการมีส่วนร่วมในสังคม": {
             "passion": ["การทำงานอาสาสมัคร", "การร่วมกิจกรรมสังคม", "การสนับสนุนสิ่งแวดล้อม"],
@@ -404,7 +326,7 @@ elif st.session_state.current_page == "ability":
     buttom_subpage()
 
 elif st.session_state.current_page == "job":
-    st.title("Styled Dropdown Example")
+    st.title("อาชีพที่เหมาะกับฉันคือ")
     activities_dict = {
         "วาดภาพและปั้นดินเผา": {
             "skill": ["พัฒนาทักษะการมองเห็นและการประสานมือ-ตา", "ความคิดสร้างสรรค์", "การแสดงออกทางศิลปะ"],
