@@ -237,12 +237,10 @@ elif st.session_state.current_page == "landmark":
             "- สามารถให้คำแนะนำที่มีเหตุผลและมีความเป็นไปได้\n"
         )
     }
-
-
-    selected_category = st.selectbox(
-    "ฉันให้คำปรึกษากับคนอื่นเรื่องอะไรได้มากที่สุด?",
-    options=list(advice_dict.keys())
-    )
+    #st.markdown('<h1 style="color:black;">คุณมีอะไรอยากระบายมั๊ย?</h1>', unsafe_allow_html=True)
+    st.markdown('<p1 style="color:black;">ฉันให้คำปรึกษากับคนอื่นเรื่องอะไรได้มากที่สุด?</p1>', unsafe_allow_html=True)
+    selected_category = st.selectbox("", options=list(advice_dict.keys()),label_visibility="collapsed")
+    
 
     if st.button('เปิดดูจุดเด่นของฉัน'):
         if selected_category:
@@ -312,8 +310,10 @@ elif st.session_state.current_page == "ability":
     options_passion.sort()
     options_do.sort()
 
-    selected_option_passion = st.selectbox("สิ่งที่ฉันทำแล้วมีความสุข:", options_passion)
-    selected_option_do = st.selectbox("สิ่งที่ฉันทำได้ดี:", options_do)
+    st.markdown('<p1 style="color:black;">สิ่งที่ฉันทำแล้วมีความสุข</p1>', unsafe_allow_html=True)
+    selected_option_passion = st.selectbox("", options_passion,label_visibility="collapsed")
+    st.markdown('<p1 style="color:black;">สิ่งที่ฉันทำได้ดี</p1>', unsafe_allow_html=True)
+    selected_option_do = st.selectbox("", options_do,label_visibility="collapsed")
 
     def check_match(option_passion, option_do):
         for group in groups.values():
@@ -480,7 +480,8 @@ elif st.session_state.current_page == "job":
         }
     }
     dropdown_options = list(activities_dict.keys())
-    selected_category = st.selectbox("กิจกรรมยามว่างที่ฉันชอบทำคือ", dropdown_options)
+    st.markdown('<p1 style="color:black;">กิจกรรมยามว่างที่ฉันชอบทำคือ</p1>', unsafe_allow_html=True)
+    selected_category = st.selectbox("", dropdown_options,label_visibility="collapsed")
 
     if st.button('เปิดดูอาชีพที่เหมาะกับฉัน'):
         if selected_category:
