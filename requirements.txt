@@ -1,6 +1,6 @@
 streamlit
 streamlit_drawable_canvas
-opencv-python-headless
+streamlit_webrtc
 ultralytics
 numpy
 pillow
