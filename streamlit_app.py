@@ -28,8 +28,13 @@ def go_to_page(page_name):
     st.session_state.current_page = page_name
 
 def buttom_subpage():
-    st.markdown('<p style="color:black;">ถ้าคุณต้องการคนรับฟัง หรืออยากเล่าอะไร น้องยินดีรับฟังเสมอนะ</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color:black;">ถ้าคุณต้องการรู้จักตัวเองมากขึ้น และอยากทำเป้าหมายให้สำเร็จ</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color:black;">ลองอ่าน booklet ซึ่งทาง youdee ตั้งใจทำให้ทุกคนอ่านดูนะ</p>', unsafe_allow_html=True)
+    display_icon_with_link(".devcontainer/icon/book.png", 'The YouDee Booklet', "https://www.youdee.redcross.or.th/booklet")
+    st.markdown('<p style="color:black;">ถ้าคุณต้องการรู้จักตัวเองมากขึ้น และอยากทำเป้าหมายให้สำเร็จ</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color:black;">หรือคุณต้องการคนรับฟัง หรืออยากเล่าอะไร น้องยินดีรับฟังเสมอนะ</p>', unsafe_allow_html=True)
     st.markdown('<p style="color:black;">สามารถส่งข้อความ หรือติดตามผลงานของน้องยินดีได้ตามช่องทางนี้เลย</p>', unsafe_allow_html=True)
+
     display_icon_with_link(".devcontainer/icon/facebook.png", 'The YouDee Project', "https://www.facebook.com/youdee.project")
     display_icon_with_link(".devcontainer/icon/ig.png", '@youdee.project', "https://www.instagram.com/youdee.project/")
     display_icon_with_link(".devcontainer/icon/web.png", 'The YouDee Project', "https://www.youdee.redcross.or.th/")
