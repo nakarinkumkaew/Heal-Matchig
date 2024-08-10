@@ -67,6 +67,7 @@ def set_background(image_file, background_size="cover"):
         }}
         .stSelectbox>div>div {{
             background-color: #B4D6CD;
+            color: black !important;
             border: 2px solid #666666;
             border-radius: 12px;
             transition: all 0.3s ease;
@@ -335,7 +336,7 @@ elif st.session_state.current_page == "ability":
     buttom_subpage()
 
 elif st.session_state.current_page == "job":
-    st.title("อาชีพที่เหมาะกับฉันคือ")
+    st.markdown('<h1 style="color:black;">อาชีพที่เหมาะกับฉันคือ</h1>', unsafe_allow_html=True)
     activities_dict = {
         "วาดภาพและปั้นดินเผา": {
             "skill": ["พัฒนาทักษะการมองเห็นและการประสานมือ-ตา", "ความคิดสร้างสรรค์", "การแสดงออกทางศิลปะ"],
