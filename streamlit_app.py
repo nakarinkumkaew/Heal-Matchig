@@ -3,6 +3,7 @@ from streamlit_drawable_canvas import st_canvas
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 from PIL import Image,ImageDraw, ImageFont
 from ultralytics import YOLO
+import cv2
 from io import BytesIO
 import base64
 import io
