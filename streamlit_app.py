@@ -28,8 +28,8 @@ def go_to_page(page_name):
     st.session_state.current_page = page_name
 
 def buttom_subpage():
-    st.write("ถ้าคุณต้องการคนรับฟัง หรืออยากเล่าอะไร น้องยินดีรับฟังเสมอนะ")
-    st.write("สามารถส่งข้อความ หรือติดตามผลงานของน้องยินดีได้ตามช่องทางนี้เลย")
+    st.markdown('<p style="color:black;">ถ้าคุณต้องการคนรับฟัง หรืออยากเล่าอะไร น้องยินดีรับฟังเสมอนะ</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color:black;">สามารถส่งข้อความ หรือติดตามผลงานของน้องยินดีได้ตามช่องทางนี้เลย</p>', unsafe_allow_html=True)
     display_icon_with_link(".devcontainer/icon/facebook.png", 'The YouDee Project', "https://www.facebook.com/youdee.project")
     display_icon_with_link(".devcontainer/icon/ig.png", '@youdee.project', "https://www.instagram.com/youdee.project/")
     display_icon_with_link(".devcontainer/icon/web.png", 'The YouDee Project', "https://www.youdee.redcross.or.th/")
@@ -67,7 +67,6 @@ def set_background(image_file, background_size="cover"):
         }}
         .stSelectbox>div>div {{
             background-color: #B4D6CD;
-            width: 70%;
             border: 2px solid #666666;
             border-radius: 12px;
             transition: all 0.3s ease;
@@ -121,15 +120,6 @@ def find_key_by_value(groups, item):
 
 set_background('.devcontainer/back_ground.png', background_size="100% 100%")
 
-LABEL_MAP = {
-    0: 'Angry',
-    1: 'Fearful',
-    2: 'Happy',
-    3:  'Neutral',
-    4: 'Sad'
-}
-
-
 
 if 'draw_enabled' not in st.session_state:
     st.session_state.draw_enabled = False
@@ -138,7 +128,7 @@ if 'current_page' not in st.session_state:
     st.session_state.current_page = "main"
 
 if st.session_state.current_page == "main":
-    st.title("ให้น้องยินดีช่วยอะไรดี")
+    st.markdown('<h1 style="color:black;">ให้น้องยินดีช่วยอะไรดี</h1>', unsafe_allow_html=True)
     if st.button('กำลังใจจากน้องยินดี', key='0-1', on_click=go_to_page, args=("inspire",)):
         pass
 
@@ -150,7 +140,7 @@ if st.session_state.current_page == "main":
 
 
 elif st.session_state.current_page == "inspire":
-    st.title("ตอนนี้คุณเป็นอย่างไรบ้าง")
+    st.markdown('<h1 style="color:black;">ตอนนี้คุณเป็นอย่างไรบ้าง</h1>', unsafe_allow_html=True)
     if st.button('กำลังเหนื่อยอยู่ใช่มั๊ย', key='1-1', on_click=go_to_page, args=("tried",)):
         pass
     if st.button('กำลังกังวลอยู่ใช่มั๊ย', key='1-2', on_click=go_to_page, args=("confuse",)):
@@ -161,7 +151,7 @@ elif st.session_state.current_page == "inspire":
         pass
 
 elif st.session_state.current_page == "yourself":
-    st.title("อยากรู้จักตัวเองในด้านไหน?")
+    st.markdown('<h1 style="color:black;">อยากรู้จักตัวเองในด้านไหน?</h1>', unsafe_allow_html=True)
     if st.button('อยากรู้จุดเด่นของฉันจัง', key='3-1', on_click=go_to_page, args=("landmark",)):
         st.write("landmark")
     if st.button('ฉันมีความสามารถอะไรบ้าง?', key='3-2', on_click=go_to_page, args=("ability",)):
@@ -172,8 +162,7 @@ elif st.session_state.current_page == "yourself":
         pass
 
 elif st.session_state.current_page == "feel":
-    st.title("คุณมีอะไรอยากระบายมั๊ย?")
-
+    st.markdown('<h1 style="color:black;">คุณมีอะไรอยากระบายมั๊ย?</h1>', unsafe_allow_html=True)
     canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",
         stroke_width=1,
@@ -202,13 +191,13 @@ elif st.session_state.current_page == "feel":
 elif st.session_state.current_page in ("tried", "confuse", "value"):
     image_path = get_random_image_path(".devcontainer/card/" + st.session_state.current_page)
     image = Image.open(image_path)
-    st.markdown('<div class="shift-down">สามารถบันทึกรูปภาพ เพื่อแชร์ให้คนสำคัญของเพื่อนๆ และให้กำลังใจตัวเองได้นะ</div>', unsafe_allow_html=True)
+    st.markdown('<div class="shift-down; style="color:black;">สามารถบันทึกรูปภาพ เพื่อแชร์ให้คนสำคัญของเพื่อนๆ และให้กำลังใจตัวเองได้นะ</div>', unsafe_allow_html=True)
     st.image(image)
     save_img(image)
     buttom_subpage()
 
 elif st.session_state.current_page == "landmark":
-    st.title("จุดเด่นของคุณคืออะไรกันแน่นะ?")
+    st.markdown('<h1 style="color:black;">จุดเด่นของคุณคืออะไรกันแน่นะ?</h1>', unsafe_allow_html=True)
     advice_dict = {
         "ความรักและความสัมพันธ์": 
             "- สามารถฟังปัญหาของเพื่อนอย่างละเอียดและไม่ตัดสิน\n"
@@ -261,7 +250,7 @@ elif st.session_state.current_page == "landmark":
     buttom_subpage()
 
 elif st.session_state.current_page == "ability":
-    st.title("Styled Dropdown Example")
+    st.markdown('<h1 style="color:black;">จุดเด่นของคุณคืออะไรกันแน่นะ?</h1>', unsafe_allow_html=True)
     groups = {
         "การช่วยเหลือและการมีส่วนร่วมในสังคม": {
             "passion": ["การทำงานอาสาสมัคร", "การร่วมกิจกรรมสังคม", "การสนับสนุนสิ่งแวดล้อม"],
