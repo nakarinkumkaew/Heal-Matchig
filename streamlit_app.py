@@ -138,7 +138,7 @@ if 'current_page' not in st.session_state:
     st.session_state.current_page = "main"
 
 if st.session_state.current_page == "main":
-
+    st.title("คุณต้องการอะไรบอกน้องยินดีได้เลยนะ")
     if st.button('กำลังใจจากน้องยินดี', key='0-1', on_click=go_to_page, args=("inspire",)):
         pass
 
