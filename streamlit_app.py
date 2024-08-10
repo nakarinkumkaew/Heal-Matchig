@@ -71,6 +71,14 @@ def set_background(image_file, background_size="cover"):
             border-radius: 12px;
             transition: all 0.3s ease;
         }}
+
+            .stSelectbox > div {{
+        color: black !important;  /* Text color */
+        padding: 5px !important;  /* Padding */
+        font-size: 16px !important;  /* Font size */
+        border-radius: 5px !important;  /* Rounded corners */
+        }}
+
         .stButton>button {{
             background-color: #B4D6CD;
             color: #333333;
@@ -191,7 +199,8 @@ elif st.session_state.current_page == "feel":
 elif st.session_state.current_page in ("tried", "confuse", "value"):
     image_path = get_random_image_path(".devcontainer/card/" + st.session_state.current_page)
     image = Image.open(image_path)
-    st.markdown('<div class="shift-down; style="color:black;">สามารถบันทึกรูปภาพ เพื่อแชร์ให้คนสำคัญของเพื่อนๆ และให้กำลังใจตัวเองได้นะ</div>', unsafe_allow_html=True)
+    st.markdown('<p1 style="color:black;">สามารถบันทึกรูปภาพ เพื่อแชร์ให้คนสำคัญของเพื่อนๆ และให้กำลังใจตัวเองได้นะ</p1>', unsafe_allow_html=True)
+    #st.markdown('<div class="shift-down; style="color:black;">สามารถบันทึกรูปภาพ เพื่อแชร์ให้คนสำคัญของเพื่อนๆ และให้กำลังใจตัวเองได้นะ</div>', unsafe_allow_html=True)
     st.image(image)
     save_img(image)
     buttom_subpage()
