@@ -28,7 +28,7 @@ def go_to_page(page_name):
     st.session_state.current_page = page_name
 
 def buttom_subpage():
-    st.write("<p style="color:black;">ถ้าคุณต้องการคนรับฟัง หรืออยากเล่าอะไร น้องยินดีรับฟังเสมอนะ</p>", unsafe_allow_html=True)
+    st.write("ถ้าคุณต้องการคนรับฟัง หรืออยากเล่าอะไร น้องยินดีรับฟังเสมอนะ")
     st.write("สามารถส่งข้อความ หรือติดตามผลงานของน้องยินดีได้ตามช่องทางนี้เลย")
     display_icon_with_link(".devcontainer/icon/facebook.png", 'The YouDee Project', "https://www.facebook.com/youdee.project")
     display_icon_with_link(".devcontainer/icon/ig.png", '@youdee.project', "https://www.instagram.com/youdee.project/")
