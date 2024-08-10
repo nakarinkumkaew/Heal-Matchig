@@ -190,4 +190,22 @@ elif st.session_state.current_page == "feel":
         buf = io.BytesIO()
         img.save(buf, format="PNG")
         byte_im = buf.getvalue()
-        st.download_button(
+        st.download_button(label="เก็บไว้เป็นที่ระลึกได้นะ", data=byte_im, file_name="drawing.png")
+
+    if st.button("Go Back"):
+        go_to_page("main")
+
+# Additional Subpages (e.g., tried, confuse, value)
+elif st.session_state.current_page in ("tried", "confuse", "value"):
+    image_path = get_random_image_path(".devcontainer/card/" + st.session_state.current_page)
+    image = Image.open(image_path)
+    st.markdown('<div class="shift-down">สามารถบันทึกรูปภาพ เพื่อแชร์ให้คนสำคัญของเพื่อนๆ และให้กำลังใจตัวเองได้นะ</div>', unsafe_allow_html=True)
+    st.image(image)
+    save_img(image)
+
+    if st.button("Go Back"):
+        go_to_page("main")
+
+# Ability and Job pages can be similarly simplified for mobile
+# ...
+
