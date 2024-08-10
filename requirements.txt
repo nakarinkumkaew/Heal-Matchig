@@ -4,3 +4,4 @@ streamlit_webrtc
 ultralytics
 numpy
 pillow
+opencv-python-headless
